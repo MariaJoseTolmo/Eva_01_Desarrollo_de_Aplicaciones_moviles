@@ -5,7 +5,7 @@ context: |
   Tech stack: Expo managed + TypeScript (blank-typescript), React Navigation 7 (bottom tabs + native stack).
   Architecture: feature-oriented src/ (features/tasks), useReducer + Context + custom hooks, repository interface (in-memory in U1).
   Testing: none detected yet (no package.json). Re-run detection after scaffolding; suggested Jest (jest-expo) + React Native Testing Library.
-  Style: artifacts in Spanish; code, identifiers and UI copy in English unless the project decides otherwise.
+  Style: artifacts and UI copy in Spanish (centralized in src/i18n/es.ts); code, identifiers and comments in English.
   Source brief written for Ionic; graded by the same rubric considering the stack change.
 
 rules:
