@@ -1,0 +1,33 @@
+schema: spec-driven
+
+context: |
+  Project: ev_01 (IPSS, Desarrollo de Aplicaciones Moviles, Unidad 1). Greenfield, not a git repo.
+  Tech stack: Expo managed + TypeScript (blank-typescript), React Navigation 7 (bottom tabs + native stack).
+  Architecture: feature-oriented src/ (features/tasks), useReducer + Context + custom hooks, repository interface (in-memory in U1).
+  Testing: none detected yet (no package.json). Re-run detection after scaffolding; suggested Jest (jest-expo) + React Native Testing Library.
+  Style: artifacts in Spanish; code, identifiers and UI copy in English unless the project decides otherwise.
+  Source brief written for Ionic; graded by the same rubric considering the stack change.
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Map scope to rubric criteria (14/18/12/28/28 pts)
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Document architecture decisions with rationale
+    - Keep Ionic to React Native equivalence traceable
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing code patterns
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: ""
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
