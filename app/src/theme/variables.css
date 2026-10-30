@@ -1,0 +1,39 @@
+/* For information on how to create your own theme, please refer to:
+http://ionicframework.com/docs/theming/ */
+
+:root {
+  /* Escala de espaciado base 4px (ritmo y proporción) */
+  --app-space-xs: 0.25rem; /* 4px */
+  --app-space-sm: 0.5rem;  /* 8px */
+  --app-space-md: 1rem;    /* 16px */
+  --app-space-lg: 1.5rem;  /* 24px */
+  --app-space-xl: 2rem;    /* 32px */
+
+  /* Radio de bordes y objetivos táctiles */
+  --app-radius-sm: 8px;
+  --app-radius-md: 12px;
+  --app-touch-target: 48px;
+
+  /* Colores principales con alto contraste WCAG AA */
+  --ion-color-primary: #1d4ed8;
+  --ion-color-primary-rgb: 29, 78, 216;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #1a45be;
+  --ion-color-primary-tint: #3460dc;
+
+  --ion-color-danger: #b91c1c;
+  --ion-color-danger-rgb: 185, 28, 28;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #a31919;
+  --ion-color-danger-tint: #c03333;
+
+  --ion-color-success: #15803d;
+  --ion-color-success-rgb: 21, 128, 61;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #127136;
+  --ion-color-success-tint: #2c8d50;
+}
+

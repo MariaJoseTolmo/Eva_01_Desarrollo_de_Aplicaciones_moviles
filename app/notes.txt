@@ -1,0 +1,33 @@
+Requerimientos funcionales
+- Página lista de tareas
+- La página de listas de tareas debe ser la página principal.
+- El usuario debe poder eliminar desde el item tarea.
+- Debe permitir listas las diferentes tareas
+- Se debe poder agregar tareas
+- Se debe poder eliminar tareas
+- Upgrade a tareas
+- Usuario deberá poder crear una tarea.
+
+No funcionales
+- Crear un componente página para las listas de tarea
+- Utilizar para la página componentes tales como:
+  - ion-header
+  - ion-content
+  - ion-list
+  - ion-item
+- Cada tarea debe ser un componente reutilizable representada mediante un ion-item
+  - Debe tener un titulo y descripción, además un id personalizado como valor agregado.
+  - Además debe tener un botón de eliminar asociado a su id para realizar el delete.
+- Debe existir un formulario de tareas para crearlas.
+  - Debe tener ion-input para el titulo y la descripción de la tarea
+  - Añadir un boton de guardar tipo ion-button
+  - Se debe limpiar el formulario posterior al agregar la tarea
+
+
+Rúbrica solicitudes
+- Node js [x]
+- Instalar IONIC CLI [x]
+- Crear un nuevo proyecto con la plantilla en blanco de ionic "- ionic start app blank --type react" [x]
+- Accesible en "http://localhost:8100" (con comando "ionic serve")[x]
+
+
