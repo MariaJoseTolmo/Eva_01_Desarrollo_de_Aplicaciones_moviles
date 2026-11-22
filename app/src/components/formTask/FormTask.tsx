@@ -10,10 +10,16 @@ import {
   IonItem,
   IonList,
   IonText,
+  IonToggle,
 } from '@ionic/react';
-import { addCircleOutline, closeCircleOutline, saveOutline } from 'ionicons/icons';
+import {
+  addCircleOutline,
+  cameraOutline,
+  closeCircleOutline,
+  locationOutline,
+  saveOutline,
+} from 'ionicons/icons';
 import React, { useState } from 'react';
-
 import type FormTaskInterface from './FormTaskInterface';
 
 const FormTask: React.FC<FormTaskInterface> = ({
@@ -23,8 +29,11 @@ const FormTask: React.FC<FormTaskInterface> = ({
 }) => {
   const [title, setTitle] = useState<string>(editingTask?.title ?? '');
   const [description, setDescription] = useState<string>(editingTask?.description ?? '');
-  const [titleError, setTitleError] = useState<string>('');
+  const [withPhoto, setWithPhoto] = useState(false);
+  const [withLocation, setWithLocation] = useState(false);
+  const [titleError, setTitleError] = useState('');
 
+  const isEditMode = Boolean(editingTask);
 
   const validateTitle = (value: string): boolean => {
     if (!value.trim()) {
@@ -35,27 +44,23 @@ const FormTask: React.FC<FormTaskInterface> = ({
     return true;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!validateTitle(title)) {
-      return;
-    }
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!validateTitle(title)) return;
 
     onSubmitTask({
       title: title.trim(),
       description: description.trim(),
     });
 
-    // Clear fields after saving a new task (required by evaluation brief)
-    if (!editingTask) {
+    if (!isEditMode) {
       setTitle('');
       setDescription('');
+      setWithPhoto(false);
+      setWithLocation(false);
       setTitleError('');
     }
   };
-
-  const isEditMode = Boolean(editingTask);
 
   return (
     <IonCard className="task-form-card">
@@ -67,79 +72,86 @@ const FormTask: React.FC<FormTaskInterface> = ({
       </IonCardHeader>
 
       <IonCardContent>
-        <form onSubmit={handleSubmit} noValidate aria-label={isEditMode ? 'Formulario para editar tarea' : 'Formulario para agregar nueva tarea'}>
-          <IonList lines="none" className="task-form-list">
-            <IonItem className={`task-form-item ${titleError ? 'ion-invalid ion-touched' : ''}`}>
+        <form
+          onSubmit={handleSubmit}
+          noValidate
+          aria-label={isEditMode ? 'Formulario para editar tarea' : 'Formulario para agregar tarea'}
+        >
+          <IonList lines="none">
+            <IonItem className={titleError ? 'ion-invalid ion-touched' : ''}>
               <IonInput
-                id="task-title-input"
-                name="title"
                 label="Título de la tarea *"
                 labelPlacement="stacked"
                 placeholder="Ej. Estudiar componentes de Ionic"
                 value={title}
-                required={true}
-                clearInput={true}
-                enterkeyhint="next"
-                aria-invalid={Boolean(titleError)}
-                aria-describedby={titleError ? 'task-title-error' : undefined}
+                clearInput
                 onIonInput={(e) => {
-                  const nextValue = String(e.detail.value ?? '');
-                  setTitle(nextValue);
-                  if (titleError && nextValue.trim()) {
-                    setTitleError('');
-                  }
+                  const v = String(e.detail.value ?? '');
+                  setTitle(v);
+                  if (titleError && v.trim()) setTitleError('');
                 }}
-                onIonBlur={() => {
-                  if (title.length > 0) {
-                    validateTitle(title);
-                  }
-                }}
+                onIonBlur={() => { if (title.length > 0) validateTitle(title); }}
               />
             </IonItem>
 
             {titleError && (
-              <div
-                id="task-title-error"
-                role="alert"
-                aria-live="polite"
-                className="task-form-error"
-              >
+              <div role="alert" aria-live="polite" style={{ padding: '0 16px 8px' }}>
                 <IonText color="danger">
                   <small>{titleError}</small>
                 </IonText>
               </div>
             )}
 
-            <IonItem className="task-form-item">
+            <IonItem>
               <IonInput
-                id="task-description-input"
-                name="description"
                 label="Descripción de la tarea"
                 labelPlacement="stacked"
-                placeholder="Ej. Revisar ion-list, ion-item, ion-input e ion-button"
+                placeholder="Ej. Revisar ion-list, ion-item, ion-input"
                 value={description}
-                clearInput={true}
-                enterkeyhint="done"
+                clearInput
                 onIonInput={(e) => setDescription(String(e.detail.value ?? ''))}
               />
             </IonItem>
+
+            {/* Opciones de periféricos solo para nuevas tareas */}
+            {!isEditMode && (
+              <>
+                <IonItem>
+                  <IonIcon slot="start" icon={cameraOutline} color="primary" />
+                  <IonText>Capturar foto con cámara</IonText>
+                  <IonToggle
+                    slot="end"
+                    checked={withPhoto}
+                    onIonChange={(e) => setWithPhoto(e.detail.checked)}
+                    aria-label="Activar captura de foto"
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonIcon slot="start" icon={locationOutline} color="primary" />
+                  <IonText>Registrar ubicación GPS</IonText>
+                  <IonToggle
+                    slot="end"
+                    checked={withLocation}
+                    onIonChange={(e) => setWithLocation(e.detail.checked)}
+                    aria-label="Activar registro de ubicación"
+                  />
+                </IonItem>
+              </>
+            )}
           </IonList>
 
-          <div className="task-form-actions">
-            <IonButton
-              id="save-task-button"
-              type="submit"
-              expand="block"
-              color="primary"
-              className="task-submit-button"
-            >
+          {/* Pasar los toggles al padre mediante el payload extendido */}
+          <input type="hidden" name="withPhoto" value={withPhoto ? '1' : '0'} />
+          <input type="hidden" name="withLocation" value={withLocation ? '1' : '0'} />
+
+          <div style={{ padding: '0 8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <IonButton type="submit" expand="block" color="primary">
               <IonIcon slot="start" icon={isEditMode ? saveOutline : addCircleOutline} />
               {isEditMode ? 'Guardar cambios' : 'Guardar tarea'}
             </IonButton>
 
             {isEditMode && onCancelEdit && (
               <IonButton
-                id="cancel-edit-button"
                 type="button"
                 expand="block"
                 fill="outline"

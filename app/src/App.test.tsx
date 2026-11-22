@@ -1,10 +1,14 @@
+/**
+ * App.test.tsx
+ * Smoke test: verifica que la aplicación renderiza sin crashear.
+ */
 import { render } from '@testing-library/react';
-import React from 'react';
-import { expect, test } from 'vitest';
-
+import { describe, expect, it } from 'vitest';
 import App from './App';
 
-test('renders without crashing', () => {
-  const { baseElement } = render(<App />);
-  expect(baseElement).toBeDefined();
+describe('App', () => {
+  it('debe renderizar sin errores', () => {
+    const { baseElement } = render(<App />);
+    expect(baseElement).toBeDefined();
+  });
 });

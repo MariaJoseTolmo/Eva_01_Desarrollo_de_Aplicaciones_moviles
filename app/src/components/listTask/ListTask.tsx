@@ -1,11 +1,16 @@
-import { IonCard, IonCardContent, IonIcon, IonLabel, IonList, IonListHeader, IonNote } from '@ionic/react';
+import {
+  IonCard,
+  IonCardContent,
+  IonIcon,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonNote,
+} from '@ionic/react';
 import { checkmarkDoneCircleOutline } from 'ionicons/icons';
 import React from 'react';
-
 import TaskContainer from '../task/TaskContainer';
-
 import type ListTaskInterface from './ListTaskInterface';
-
 
 const ListTask: React.FC<ListTaskInterface> = ({
   tasks,
@@ -15,22 +20,30 @@ const ListTask: React.FC<ListTaskInterface> = ({
   onToggleTask,
 }) => {
   return (
-    <section aria-labelledby="task-list-heading" className="task-list-section">
-      <IonList inset={true} className="task-list">
+    <section aria-labelledby="task-list-heading">
+      <IonList inset>
         <IonListHeader>
           <IonLabel id="task-list-heading">
             <h2>Lista de Tareas</h2>
           </IonLabel>
-          <IonNote color="medium" className="task-list__counter">
+          <IonNote color="medium">
             {tasks.length} {tasks.length === 1 ? 'tarea' : 'tareas'}
           </IonNote>
         </IonListHeader>
 
         {tasks.length === 0 ? (
-          <IonCard className="empty-state-card">
-            <IonCardContent className="empty-state-content">
-              <IonIcon icon={checkmarkDoneCircleOutline} className="empty-state-icon" aria-hidden="true" />
-              <p className="empty-state-text">{emptyMessage}</p>
+          <IonCard>
+            <IonCardContent
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '32px' }}
+            >
+              <IonIcon
+                icon={checkmarkDoneCircleOutline}
+                style={{ fontSize: '48px', color: 'var(--ion-color-medium)', marginBottom: '12px' }}
+                aria-hidden
+              />
+              <p style={{ textAlign: 'center', color: 'var(--ion-color-medium)' }}>
+                {emptyMessage}
+              </p>
             </IonCardContent>
           </IonCard>
         ) : (

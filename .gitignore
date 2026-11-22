@@ -1,8 +1,7 @@
-.DS_Store
 node_modules/
-.expo/
 dist/
-web-build/
-*.log
-.env*
-.atl/
+dist-ssr/
+*.local
+.env
+.env.*
+!.env.example
